@@ -1,0 +1,61 @@
+//https://www.pepcoding.com/resources/online-java-foundation/recursion-with-arraylists/get-stair-paths-official/ojquestion
+
+import java.io.*;
+import java.util.*;
+
+public class Main {
+
+    public static void main(String[] args) throws Exception {
+        
+        Scanner scn = new Scanner(System.in);
+        int n = scn.nextInt();
+        
+        ArrayList<String> mres = getStairPaths(n);
+        System.out.println(mres);
+
+    }
+
+    public static ArrayList<String> getStairPaths(int n) {
+        
+        if(n < 0){
+            ArrayList<String> ans = new ArrayList<>();
+            return ans;
+        }
+        
+        if(n == 0){
+            ArrayList<String> mres = new ArrayList<>();
+            mres.add("");
+            return mres;
+        }
+        
+        ArrayList<String> mres = new ArrayList<>();
+        
+        ArrayList<String> oneStep = getStairPaths(n-1);
+        if(oneStep.size() != 0){
+            for(String curr: oneStep){
+                mres.add("1" + curr);
+            }
+        }
+        
+        ArrayList<String> twoStep = getStairPaths(n-2);
+        if(twoStep.size() != 0){
+            for(String curr: twoStep){
+                mres.add("2" + curr);
+            }
+        }
+        
+        ArrayList<String> threeStep = getStairPaths(n-3);
+        if(threeStep.size() != 0){
+            for(String curr: threeStep){
+                mres.add("3" + curr);
+            }
+        }
+        
+        if(mres.size() == 0){
+            mres.add("");
+        }
+        
+        return mres;
+    }
+
+}
