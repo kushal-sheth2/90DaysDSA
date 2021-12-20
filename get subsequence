@@ -1,0 +1,42 @@
+//https://www.pepcoding.com/resources/online-java-foundation/recursion-with-arraylists/get-subsequence-official/ojquestion
+
+import java.io.*;
+import java.util.*;
+
+public class Main {
+
+    public static void main(String[] args) throws Exception {
+        
+        Scanner scn = new Scanner(System.in);
+        String str = scn.next();
+        ArrayList<String> res = gss(str);
+        System.out.println(res);
+
+    }
+
+    public static ArrayList<String> gss(String str) {
+        
+        if(str.length() == 0){
+            ArrayList<String> ans = new ArrayList<>();
+            ans.add("");
+            return ans;
+        }
+        
+        char ch = str.charAt(0);
+        String ros = str.substring(1);
+        ArrayList<String> rres = gss(ros);
+        
+        ArrayList<String> ans = new ArrayList<>();
+        
+        for(String curr: rres){
+            ans.add("" + curr);
+        }
+        
+        for(String curr: rres){
+            ans.add(ch + curr);
+        }
+        
+        return ans;
+    }
+
+}
