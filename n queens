@@ -1,0 +1,63 @@
+//https://www.pepcoding.com/resources/online-java-foundation/recursion-backtracking/n-queens-official/ojquestion
+
+import java.io.*;
+import java.util.*;
+
+public class Main {
+
+    public static void main(String[] args) throws Exception {
+        
+        Scanner scn = new Scanner(System.in);
+        int n= scn.nextInt();
+        int[][] arr = new int[n][n];
+        
+        printNQueens(arr, "", 0);
+        
+    }
+
+    public static void printNQueens(int[][] chess, String qsf, int row) {
+        
+        if(row == chess.length){
+            System.out.println(qsf + ".");
+            return;
+        }
+        
+        for(int j=0; j<chess[0].length; j++){
+            if(isSafePlaceForQueen(chess, row, j) == true){
+                    
+                chess[row][j] = 1;
+                printNQueens(chess, qsf + row + "-" + j + ", ", row+1);
+                chess[row][j] = 0;
+            }
+        }
+        
+    }
+    
+    public static boolean isSafePlaceForQueen(int[][] chess, int row, int col){
+        
+        //check all the above rows with same columns
+        for(int r= row-1; r>=0; r--){
+            if(chess[r][col] == 1){
+                return false;
+            }
+        }
+        
+        //check left diagonal
+        for(int r=row-1,c= col-1; r>=0 && c>=0; r--, c--){
+            if(chess[r][c] == 1){
+                return false;
+            }
+        }
+        
+        //check right diagonal
+        for(int r= row-1, c= col+1; r>=0 && c<chess[0].length; r--, c++){
+            if(chess[r][c] == 1){
+                return false;
+            }
+        }
+        
+        return true;
+        
+        
+    }
+}
