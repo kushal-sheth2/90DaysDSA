@@ -1,0 +1,73 @@
+//https://www.pepcoding.com/resources/online-java-foundation/recursion-on-the-way-up/print-encodings-official/ojquestion
+
+import java.io.*;
+import java.util.*;
+
+public class Main {
+
+    public static void main(String[] args) throws Exception {
+        Scanner scn = new Scanner(System.in);
+        String str = scn.next();
+        printEncodings(str, "");
+
+    }
+
+    public static void printEncodings(String str, String asf) {
+        
+        if(str.length() == 0){
+            System.out.println(asf);
+            return;
+        }
+        
+        char ch = str.charAt(0);
+        int chv = ch - '0';
+        if(ch==0){
+            return ;
+        }
+        if(ch=='1' || ch=='2'){
+            if(1<str.length() && str.charAt(1)=='0'){
+
+                if(ch=='1'){
+                    asf = asf + "j";
+                }else{
+                    asf = asf + "t";
+                }
+                
+                String ros = str.substring(2);
+                printEncodings(ros, asf);
+                return;
+            }
+            
+            char curr = (char)('a' + chv - 1);
+            asf = asf + curr;
+            String ros = str.substring(1);
+            printEncodings(ros, asf);
+            
+            if(1< str.length()){
+                if(ch=='1'){
+                    int num = 10 + (str.charAt(1))- '0';
+                    char nchar = (char)('a' + num - 1);
+                    String nasf = asf.substring(0, asf.length()-1);
+                    nasf = nasf + nchar;
+                    String rem = str.substring(2);
+                    printEncodings(rem, nasf);
+                } else if(ch == '2' && str.charAt(1) <= '6'){
+                    int num = 20 + (str.charAt(1)) - '0';
+                    char nchar = (char)('a' + num - 1);
+                    String nasf = asf.substring(0, asf.length()-1);
+                    nasf = nasf + nchar;
+                    String rem = str.substring(2);
+                    printEncodings(rem, nasf);
+                }
+            }
+        }
+        else{
+            char curr = (char)('a' + chv - 1);
+            asf = asf + curr;
+            String ros = str.substring(1);
+            printEncodings(ros, asf);
+        }
+        
+    }
+
+}
