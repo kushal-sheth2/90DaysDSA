@@ -68,7 +68,7 @@ public class Main {
             if(isValid(board, i, j, po)){
                 board[i][j] = po;
                 solveSudoku(board, ni, nj);
-                board[i][j] = 0;
+                board[i][j] = 0;                //we are assigning 0 again that is why this is called backtracking.
             }
         }
     }
