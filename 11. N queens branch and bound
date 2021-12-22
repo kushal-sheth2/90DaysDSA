@@ -1,0 +1,45 @@
+import java.io.*;
+import java.util.*;
+
+public class Main {
+
+    public static void solve(boolean[][] board, int currRow, boolean[] col, boolean[] ndiag, boolean[] rdiag, String asf){
+        
+        if(currRow == board.length){
+            System.out.println(asf + ".");
+            return;
+        }
+        
+        for(int c = 0 ; c < board[currRow].length ; c++){
+            if(col[c] == false && ndiag[currRow + c] == false && rdiag[currRow-c + board.length - 1] == false){
+                board[currRow][c] = true;
+                col[c] = true;
+                ndiag[currRow + c] = true;
+                rdiag[currRow - c + board.length - 1] = true;
+                
+                solve(board, currRow + 1, col, ndiag, rdiag, asf + currRow + "-" + c + ", ");
+                
+                board[currRow][c] = false;
+                col[c] = false;
+                ndiag[currRow + c] = false;
+                rdiag[currRow - c + board.length - 1] = false;
+            }
+        }
+        
+    }
+    
+  public static void main(String[] args) throws Exception {
+    Scanner scn = new Scanner(System.in);
+    int n = scn.nextInt();
+    boolean[][] board = new boolean[n][n];
+    //write your code here
+    
+    boolean[] col = new boolean[n];
+    boolean[] ndiag = new boolean[2 * n - 1];
+    boolean[] rdiag = new boolean[2 * n - 1];
+    
+    solve(board, 0, col, ndiag, rdiag, "");
+    
+  }
+
+}
